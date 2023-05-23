@@ -1,7 +1,7 @@
 pipeline {
 
     agent {
-        label 'my-second-agent
+        label 'my-second-agent'
 '
     }
 
