@@ -1,8 +1,7 @@
 pipeline {
 
     agent {
-        label 'my-second-agent'
-
+        label 'my-ssh-agent-2'
     }
 
     tools {
@@ -10,6 +9,13 @@ pipeline {
     }
 
     stages {
+
+        stage('Clean') {
+            steps {
+                cleanWs()
+            }
+        }
+
         stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/stoenpav/nodejs-my-proj.git'
@@ -31,11 +37,5 @@ pipeline {
                 sh 'forever start src/index.js'
            }
         }
-    }
-
-    post {
-      always {
-         cleanWs()
-      }
     }
 }
