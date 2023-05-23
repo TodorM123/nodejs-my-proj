@@ -41,10 +41,11 @@ pipeline {
                 sh 'npm test' //This is for testing the nodejs modules
             }
         }
-        stage('Docker login'){
+        stage('Docker Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-	        }
+                sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+            }
+        }
         }
         stage('Docker build and tag'){
             steps {
