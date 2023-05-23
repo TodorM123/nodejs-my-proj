@@ -8,6 +8,10 @@ pipeline {
         nodejs 'nodejs'
     }
 
+    triggers {
+        githubPush()
+    }
+
     stages {
 
         stage('Clean') {
