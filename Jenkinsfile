@@ -41,12 +41,13 @@ pipeline {
                 sh 'npm test' //This is for testing the nodejs modules
             }
         }
-        stage('Docker Login') {
-            steps {
-                sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-            }
+
+	stage('Docker login'){
+           steps {
+               sh 'docker login -u $DOCKERHUB_CREDENTIALS  -p $DOCKERHUB_CREDENTIALS'
+	   }
         }
-        }
+
         stage('Docker build and tag'){
             steps {
                 sh 'docker build -t ${IMAGE_NAME} -f Dockerfile .'
@@ -54,11 +55,12 @@ pipeline {
             }
         }
 
-	    stage('Docker Push'){
+	stage('Docker Push'){
             steps {
               sh 'docker push ${IMAGE_NAME}:${BUILD_NUMBER}'
             }
         }
+
         stage('Deploy') {
            steps {
                 sh 'pkill node | true'
@@ -67,3 +69,4 @@ pipeline {
            }
         }
     }
+}
