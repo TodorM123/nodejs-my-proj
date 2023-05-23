@@ -1,0 +1,29 @@
+pipeline {
+    agent {
+        label 'docker-slave'
+    }
+    
+    
+    tools {
+        nodejs 'nodejs'
+    }
+    
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git branch: 'main', url: 'https://github.com/TodorM123/nodejs-my-proj'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm ci' //This is for building the nodejs project
+            }
+        }
+        stage('test') {
+            steps {
+                sh 'npm test' //This is for testing the nodejs modules
+            }
+        }
+            
+        }
+    }
